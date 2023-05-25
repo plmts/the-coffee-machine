@@ -63,6 +63,13 @@ def transaction_is_successful(money_received, drink_cost):
         print("Sorry, there is not enouth money! Money refunded.")
         return False
 
+def make_drink(drink_name, order_ingredients):
+    """tira o equitativo de ingredientes solicitados para a bebida da máquina."""
+    for item in order_ingredients:
+        resources[item] -= order_ingredients[item]
+    print(f"Here is your {drink_name}")
+
+
 game_on = True
 
 while game_on:
@@ -78,4 +85,5 @@ while game_on:
         drink = MENU[choice]
         if is_resources_sufficient(drink["ingredients"]):
             payment = process_coins()
-            transaction_is_successful(payment, drink["cost"])
+            if transaction_is_successful(payment, drink["cost"]):
+                make_drink(choice, drink["ingredients"])
